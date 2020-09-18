@@ -52,7 +52,7 @@ function Chat(props) {
               </ListGroup.Item>
             )})}
           </ListGroup>
-          <Button variant="info" size="lg" block onClick={() => {setShow(true);}}>
+          <Button className="create-convo" variant="info" size="lg" block onClick={() => {setShow(true);}}>
             Creat Conversation
           </Button>
         </Col>

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Row, InputGroup, Form, FormControl, Button } from 'react-bootstrap';
+import './conversation.css';
 
 
 function Conversation(props) {
@@ -20,7 +21,7 @@ function Conversation(props) {
     const form = event.currentTarget;
     event.preventDefault();
     const newMessages = messages.slice();
-    newMessages.push({ userId: currentUser.id, content: form.elements.message.value });
+    newMessages.push({ user: currentUser, content: form.elements.message.value });
     setMessages(newMessages);
     form.elements.message.value = '';
     setTimeout(() => {
@@ -33,9 +34,14 @@ function Conversation(props) {
       <div className="conversation">
         {messages.map((message, index) => {
           return (
-            <Row key={index} className={`box ${message.userId === currentUser.id ? 'self' : 'other'}`}>
-              {message.content}
-            </Row>
+            <>
+              <Row key={index} className={`box ${message.user.id === currentUser.id ? 'self' : 'other'}`}>
+                {message.content}
+              </Row>
+              {(!messages[index+1] || messages[index+1].user.id !== messages[index].user.id) &&
+                <span className={`${message.user.id === currentUser.id ? 'self-name' : 'other-name'}`}>{message.user.name}</span>
+              }
+            </>
           )
         })}
         <div style={{ float:"left", clear: "both" }} ref={messagesEnd}>
