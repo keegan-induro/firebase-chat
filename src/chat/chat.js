@@ -59,6 +59,7 @@ function Chat(props) {
         <Col>
           <Row>
             <Col>
+            {activeConversation &&
               <ListGroup horizontal className="justify-content-md-center">
                 {activeConversation.users.map((user, index) => {
                   return (
@@ -66,6 +67,7 @@ function Chat(props) {
                   )
                 })}
               </ListGroup>
+            }
             </Col>
           </Row>
           <Conversation conversation={activeConversation} currentUser={currentUser} />

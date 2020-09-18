@@ -4,7 +4,7 @@ import './conversation.css';
 
 
 function Conversation(props) {
-  const [messages, setMessages] = useState(props.conversation.messages);
+  const [messages, setMessages] = useState(props.conversation ? props.conversation.messages : []);
   const [currentUser] = useState(props.currentUser);
   const messagesEnd = useRef(null);
 
@@ -13,7 +13,7 @@ function Conversation(props) {
   }
 
   useEffect(() => {
-    setMessages(props.conversation.messages);
+    setMessages(props.conversation ? props.conversation.messages : []);
     scrollToBottom();
   }, [props.conversation]);
 
@@ -34,14 +34,14 @@ function Conversation(props) {
       <div className="conversation">
         {messages.map((message, index) => {
           return (
-            <>
+            <div key={index} >
               <Row key={index} className={`box ${message.user.id === currentUser.id ? 'self' : 'other'}`}>
                 {message.content}
               </Row>
               {(!messages[index+1] || messages[index+1].user.id !== messages[index].user.id) &&
-                <span className={`${message.user.id === currentUser.id ? 'self-name' : 'other-name'}`}>{message.user.name}</span>
+                <span key={`name ${index}`} className={`${message.user.id === currentUser.id ? 'self-name' : 'other-name'}`}>{message.user.name}</span>
               }
-            </>
+            </div>
           )
         })}
         <div style={{ float:"left", clear: "both" }} ref={messagesEnd}>
