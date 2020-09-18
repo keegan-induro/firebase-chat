@@ -5,10 +5,10 @@ import Chat from './chat/chat.js';
 import { Container, Navbar, Nav } from 'react-bootstrap';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(true);
+  const [currentUser, setCurrentUser] = useState({ id: '1', name: 'Keegan' });
 
   const login = async () => {
-    setCurrentUser(true);
+    setCurrentUser({ id: '1', name: 'Keegan' });
   }
 
   const logout = async () => {
@@ -36,7 +36,7 @@ function App() {
       <Container className="main-container">
         { currentUser && (
           <div>
-            <Chat />
+            <Chat currentUser={currentUser} />
           </div>
         )}
       </Container>

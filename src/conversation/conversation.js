@@ -4,7 +4,7 @@ import { Row, InputGroup, Form, FormControl, Button } from 'react-bootstrap';
 
 function Conversation(props) {
   const [messages, setMessages] = useState(props.conversation.messages);
-  const [currentUser] = useState('1');
+  const [currentUser] = useState(props.currentUser);
   const messagesEnd = useRef(null);
 
   const scrollToBottom = () => {
@@ -20,7 +20,7 @@ function Conversation(props) {
     const form = event.currentTarget;
     event.preventDefault();
     const newMessages = messages.slice();
-    newMessages.push({ userId: currentUser, content: form.elements.message.value });
+    newMessages.push({ userId: currentUser.id, content: form.elements.message.value });
     setMessages(newMessages);
     form.elements.message.value = '';
     setTimeout(() => {
@@ -33,7 +33,7 @@ function Conversation(props) {
       <div className="conversation">
         {messages.map((message, index) => {
           return (
-            <Row key={index} className={`box ${message.userId === currentUser ? 'self' : 'other'}`}>
+            <Row key={index} className={`box ${message.userId === currentUser.id ? 'self' : 'other'}`}>
               {message.content}
             </Row>
           )
